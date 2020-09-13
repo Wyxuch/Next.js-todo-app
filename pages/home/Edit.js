@@ -113,7 +113,13 @@ function Edit(props) {
                       .format("DD.MM.YYYY HH:mm")
                   : moment().tz(moment.tz.guess()).format("DD.MM.YYYY HH:mm")}
               </Text>
-              <Button onClick={deleteItem} variant="delete">
+              <Button
+                onClick={deleteItem}
+                variant="delete"
+                sx={{
+                  display: showModal.id ? "block" : "none",
+                }}
+              >
                 delete
               </Button>
             </Flex>
