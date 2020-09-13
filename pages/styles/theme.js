@@ -84,6 +84,9 @@ export default {
       pb: 1,
       m: 1,
       justifyContent: "space-between",
+      "@media (orientation: landscape)": {
+        px: 2,
+      },
     },
   },
   buttons: {
@@ -173,6 +176,14 @@ export default {
       width: "100%",
       height: "100%",
       pb: 2,
+    },
+    time: {
+      fontSize: "small",
+      fontWeight: 600,
+      color: "white",
+      borderBottom: "1px solid #777777",
+      pb: 1,
+      mb: 1,
     },
   },
   forms: {
