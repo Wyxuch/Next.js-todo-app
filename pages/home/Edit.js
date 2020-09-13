@@ -59,6 +59,13 @@ function Edit(props) {
     setInputValue("");
   };
 
+  const deleteItem = () => {
+    const newList = removeItemAtIndex(todoList, index);
+    setTodoList(newList);
+    setShowModal(() => false);
+    setInputValue("");
+  };
+
   useEffect(() => {
     if (showModal.id) {
       setInputValue(todoList[index].text);
@@ -76,13 +83,19 @@ function Edit(props) {
               height: "100%",
             }}
           >
-            <Text variant="time" p={2} m={1}>
-              {showModal.id
-                ? moment(todoList[index].time)
-                    .tz(moment.tz.guess())
-                    .format("DD.MM.YYYY HH:mm")
-                : moment().tz(moment.tz.guess()).format("DD.MM.YYYY HH:mm")}
-            </Text>
+            <Flex variant="editTop">
+              <Text m={1}>
+                {showModal.id
+                  ? moment(todoList[index].time)
+                      .tz(moment.tz.guess())
+                      .format("DD.MM.YYYY HH:mm")
+                  : moment().tz(moment.tz.guess()).format("DD.MM.YYYY HH:mm")}
+              </Text>
+              <Button onClick={deleteItem} variant="delete">
+                delete
+              </Button>
+            </Flex>
+
             <Textarea
               variant="fillTextarea"
               id="editTextarea"
@@ -94,10 +107,13 @@ function Edit(props) {
                 onClick={showModal.id ? editItem : addItem}
                 variant="success"
               >
-                ✓
+                save
+              </Button>
+              <Button onClick={hideEditModal} variant="done">
+                done
               </Button>
               <Button onClick={hideEditModal} variant="danger">
-                ✗
+                cancel
               </Button>
             </Flex>
           </Flex>
@@ -119,4 +135,8 @@ function getTime() {
 
 function replaceItemAtIndex(arr, index, newValue) {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
+}
+
+function removeItemAtIndex(arr, index) {
+  return [...arr.slice(0, index), ...arr.slice(index + 1)];
 }

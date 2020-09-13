@@ -5,6 +5,7 @@ export default {
     lighter: "#bdbdbd",
     white: "#ffffff",
     success: "#28a745",
+    done: "#20c997",
     danger: "#dc3545",
   },
   shadows: {
@@ -74,9 +75,15 @@ export default {
       height: "100vh",
       overflow: "auto",
       bg: "rgba(0,0,0,0.7)",
-      "@media (orientation: portrait)": {
-        display: "none",
-      },
+    },
+    editTop: {
+      fontSize: "small",
+      fontWeight: 600,
+      color: "white",
+      borderBottom: "1px solid #777777",
+      pb: 1,
+      m: 1,
+      justifyContent: "space-between",
     },
   },
   buttons: {
@@ -119,7 +126,24 @@ export default {
     success: {
       bg: "success",
       flex: 1,
-      fontWeight: 900,
+      fontWeight: 600,
+      display: "inline-block",
+      size: "3em",
+      lineHeight: "1",
+      textAlign: "center",
+      color: "white",
+      outline: 0,
+      cursor: "pointer",
+      borderRadius: 0,
+    },
+    delete: {
+      bg: "danger",
+      p: 1,
+    },
+    done: {
+      bg: "done",
+      flex: 1,
+      fontWeight: 600,
       display: "inline-block",
       size: "3em",
       lineHeight: "1",
@@ -132,7 +156,7 @@ export default {
     danger: {
       bg: "danger",
       flex: 1,
-      fontWeight: 900,
+      fontWeight: 600,
       display: "inline-block",
       size: "3em",
       lineHeight: "1",
@@ -149,14 +173,6 @@ export default {
       width: "100%",
       height: "100%",
       pb: 2,
-    },
-    time: {
-      fontSize: "small",
-      fontWeight: 600,
-      color: "white",
-      borderBottom: "1px solid #777777",
-      pb: 1,
-      mb: 1,
     },
   },
   forms: {
