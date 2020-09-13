@@ -26,7 +26,6 @@ export const filteredTodoListState = selector({
     const list = get(todoListState);
 
     if (filter) {
-      console.log(filter);
       return list.filter(
         (item) =>
           item.text.toLowerCase().includes(filter.toLowerCase()) ||

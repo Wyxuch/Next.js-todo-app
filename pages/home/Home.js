@@ -12,7 +12,6 @@ import { useEffect } from "react";
 function Home() {
   const filteredList = useRecoilValue(filteredTodoListState);
   const setTodoList = useSetRecoilState(todoListState);
-  console.log(filteredList);
 
   useEffect(() => {
     if (localStorage.todoListState) {
