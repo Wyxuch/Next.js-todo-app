@@ -8,7 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@rebass/forms": "^4.0.6",
+    "@rebass/layout": "^4.0.6",
+    "emotion-theming": "^10.0.27",
     "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
     "next": "9.3.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
