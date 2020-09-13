@@ -6,12 +6,13 @@ import Note from "./Note";
 import Edit from "./Edit";
 import { Flex } from "rebass";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { todoListState } from "../../atoms/Todo";
+import { todoListState, filteredTodoListState } from "../../atoms/Todo";
 import { useEffect } from "react";
 
 function Home() {
-  const todoList = useRecoilValue(todoListState);
+  const filteredList = useRecoilValue(filteredTodoListState);
   const setTodoList = useSetRecoilState(todoListState);
+  console.log(filteredList);
 
   useEffect(() => {
     if (localStorage.todoListState) {
@@ -33,7 +34,7 @@ function Home() {
       <Flex variant="main">
         <AddNoteTile />
 
-        {todoList.map((todoItem) => (
+        {filteredList.map((todoItem) => (
           <Note key={todoItem.id} item={todoItem} />
         ))}
       </Flex>

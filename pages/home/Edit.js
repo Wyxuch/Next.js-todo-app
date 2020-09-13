@@ -9,6 +9,7 @@ import { todoListState, showEdit } from "../../atoms/Todo";
 
 function Edit(props) {
   const [inputValue, setInputValue] = useState("");
+  const [complete, setComplete] = useState("");
   const setTodoList = useSetRecoilState(todoListState);
   const todoList = useRecoilValue(todoListState);
   const setShowModal = useSetRecoilState(showEdit);
@@ -59,6 +60,15 @@ function Edit(props) {
     setInputValue("");
   };
 
+  const toggleItemCompletion = () => {
+    const newList = replaceItemAtIndex(todoList, index, {
+      ...todoList[index],
+      isComplete: !todoList[index].isComplete,
+    });
+
+    setTodoList(newList);
+  };
+
   const deleteItem = () => {
     const newList = removeItemAtIndex(todoList, index);
     setTodoList(newList);
@@ -69,13 +79,25 @@ function Edit(props) {
   useEffect(() => {
     if (showModal.id) {
       setInputValue(todoList[index].text);
+      setComplete(todoList[index].isComplete);
+    } else {
+      setComplete(false);
     }
-  }, [showModal.show]);
+  }, [showModal.show, todoList[index]]);
 
   return (
-    <Box sx={{ display: showModal.show ? "block" : "none" }}>
+    <Box
+      sx={{
+        display: showModal.show ? "block" : "none",
+      }}
+    >
       <Flex variant="editbg" ref={editWrapper} onMouseDown={handleClickOutside}>
-        <Box variant="edit">
+        <Box
+          variant="edit"
+          sx={{
+            backgroundColor: complete ? "#2e582c" : "dark",
+          }}
+        >
           <Flex
             sx={{
               justifyContent: "space-between",
@@ -109,7 +131,7 @@ function Edit(props) {
               >
                 save
               </Button>
-              <Button onClick={hideEditModal} variant="done">
+              <Button onClick={toggleItemCompletion} variant="done">
                 done
               </Button>
               <Button onClick={hideEditModal} variant="danger">

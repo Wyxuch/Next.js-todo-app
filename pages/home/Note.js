@@ -33,7 +33,13 @@ function Note(props) {
   };
 
   return (
-    <Card variant="note" onClick={showEditModal}>
+    <Card
+      variant="note"
+      onClick={showEditModal}
+      sx={{
+        backgroundColor: props.item.isComplete ? "#2e582c" : "dark",
+      }}
+    >
       <Text variant="time">
         {moment(props.item.time)
           .tz(moment.tz.guess())

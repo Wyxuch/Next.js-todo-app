@@ -38,7 +38,7 @@ export default {
       p: 3,
       m: 1,
       bg: "dark",
-
+      cursor: "pointer",
       color: "lighter",
       boxShadow: "small",
       borderRadius: 12,
@@ -115,6 +115,7 @@ export default {
       bg: "dark",
       color: "lighter",
       boxShadow: "small",
+      cursor: "pointer",
       borderRadius: 12,
       overflow: "hidden",
       width: "calc((100vw/5) - 12px)",
