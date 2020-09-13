@@ -8,7 +8,7 @@ function AddNoteTile() {
 
   const showEditModal = () => {
     showEditState(() => {
-      return { show: true, time: moment.utc(), text: "", isComplete: false };
+      return { show: true, id: "" };
     });
   };
 

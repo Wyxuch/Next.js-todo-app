@@ -8,13 +8,7 @@ function AddButton() {
 
   const showEditModal = () => {
     showEditState(() => {
-      return {
-        show: true,
-        time: moment.utc(),
-        text: "",
-        id: "",
-        isComplete: false,
-      };
+      return { show: true, id: "" };
     });
   };
 

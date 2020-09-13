@@ -6,7 +6,7 @@ import Note from "./Note";
 import Edit from "./Edit";
 import { Flex } from "rebass";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { todoListState, showEdit } from "../../atoms/Todo";
+import { todoListState } from "../../atoms/Todo";
 import { useEffect } from "react";
 
 function Home() {
@@ -44,8 +44,3 @@ function Home() {
 }
 
 export default Home;
-
-let id = 0;
-function getId() {
-  return id++;
-}

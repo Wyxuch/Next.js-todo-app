@@ -2,15 +2,17 @@ import { Box, Flex } from "Rebass";
 import { Button, Text } from "rebass";
 import { Textarea } from "@rebass/forms";
 import { useState, useRef } from "react";
-import { useSetRecoilState, useRecoilValue, atom } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useEffect } from "react";
 import moment from "moment-timezone";
 import { todoListState, showEdit } from "../../atoms/Todo";
 
-function Edit() {
+function Edit(props) {
   const [inputValue, setInputValue] = useState("");
   const setTodoList = useSetRecoilState(todoListState);
+  const todoList = useRecoilValue(todoListState);
+  const setShowModal = useSetRecoilState(showEdit);
   const showModal = useRecoilValue(showEdit);
-  const showModalState = useSetRecoilState(showEdit);
 
   const editWrapper = useRef(null);
 
@@ -20,8 +22,8 @@ function Edit() {
     }
   };
 
-  const hideEditModal = (e) => {
-    showModalState(() => false);
+  const hideEditModal = () => {
+    setShowModal(() => false);
     setInputValue("");
   };
 
@@ -32,7 +34,7 @@ function Edit() {
         id: getId(),
         text: inputValue,
         isComplete: false,
-        time: showModal.time,
+        time: getTime(),
       },
     ]);
     setInputValue("");
@@ -42,6 +44,26 @@ function Edit() {
   const onChange = ({ target: { value } }) => {
     setInputValue(value);
   };
+
+  const index = todoList.findIndex((listItem) => {
+    return listItem.id === showModal.id;
+  });
+
+  const editItem = () => {
+    const newList = replaceItemAtIndex(todoList, index, {
+      ...todoList[index],
+      text: inputValue,
+    });
+    setTodoList(newList);
+    setShowModal(() => false);
+    setInputValue("");
+  };
+
+  useEffect(() => {
+    if (showModal.id) {
+      setInputValue(todoList[index].text);
+    }
+  }, [showModal.show]);
 
   return (
     <Box sx={{ display: showModal.show ? "block" : "none" }}>
@@ -55,9 +77,11 @@ function Edit() {
             }}
           >
             <Text variant="time" p={2} m={1}>
-              {moment(showModal.time)
-                .tz(moment.tz.guess())
-                .format("DD.MM.YYYY HH:mm")}
+              {showModal.id
+                ? moment(todoList[index].time)
+                    .tz(moment.tz.guess())
+                    .format("DD.MM.YYYY HH:mm")
+                : moment().tz(moment.tz.guess()).format("DD.MM.YYYY HH:mm")}
             </Text>
             <Textarea
               variant="fillTextarea"
@@ -66,7 +90,10 @@ function Edit() {
               onChange={onChange}
             />
             <Flex>
-              <Button onClick={addItem} variant="success">
+              <Button
+                onClick={showModal.id ? editItem : addItem}
+                variant="success"
+              >
                 ✓
               </Button>
               <Button onClick={hideEditModal} variant="danger">
@@ -84,4 +111,12 @@ export default Edit;
 
 function getId() {
   return moment.utc().tz("Europe/Warsaw").valueOf();
+}
+
+function getTime() {
+  return moment().tz(moment.tz.guess()).format();
+}
+
+function replaceItemAtIndex(arr, index, newValue) {
+  return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 }

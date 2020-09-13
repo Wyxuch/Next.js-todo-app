@@ -65,7 +65,7 @@ export default {
       },
     },
     editbg: {
-      position: "absolute",
+      position: "fixed",
       justifyContent: "center",
       alignItems: "center",
       top: 0,
